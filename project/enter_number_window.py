@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(644, 793)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_EnterNumberWindow(object):
+    def setupUi(self, EnterNumberWindow):
+        EnterNumberWindow.setObjectName("EnterNumberWindow")
+        EnterNumberWindow.resize(644, 793)
+        self.centralwidget = QtWidgets.QWidget(EnterNumberWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(60, 260, 181, 20))
@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(60, 330, 521, 181))
+        self.label_4.setGeometry(QtCore.QRect(230, 320, 201, 181))
         font = QtGui.QFont()
         font.setPointSize(36)
         font.setBold(False)
@@ -145,36 +145,36 @@ class Ui_MainWindow(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.verticalLayout_4.addWidget(self.label_2)
-        MainWindow.setCentralWidget(self.centralwidget)
+        EnterNumberWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(EnterNumberWindow)
+        QtCore.QMetaObject.connectSlotsByName(EnterNumberWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, EnterNumberWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_3.setText(_translate("MainWindow", "Ваше число:"))
-        self.pushButton_0.setText(_translate("MainWindow", "0"))
-        self.pushButton_1.setText(_translate("MainWindow", "1"))
-        self.pushButton_2.setText(_translate("MainWindow", "2"))
-        self.pushButton_3.setText(_translate("MainWindow", "3"))
-        self.pushButton_4.setText(_translate("MainWindow", "4"))
-        self.pushButton_5.setText(_translate("MainWindow", "5"))
-        self.pushButton_6.setText(_translate("MainWindow", "6"))
-        self.pushButton_8.setText(_translate("MainWindow", "8"))
-        self.pushButton_9.setText(_translate("MainWindow", "9"))
-        self.pushButton_7.setText(_translate("MainWindow", "7"))
-        self.pushButton_delete.setText(_translate("MainWindow", "Стереть"))
-        self.pushButton_enter.setText(_translate("MainWindow", "Ввод"))
-        self.label.setText(_translate("MainWindow", "Введите четырехзначное число!"))
-        self.label_2.setText(_translate("MainWindow", "Цифры не должны повторяться!"))
+        EnterNumberWindow.setWindowTitle(_translate("EnterNumberWindow", "MainWindow"))
+        self.label_3.setText(_translate("EnterNumberWindow", "Ваше число:"))
+        self.pushButton_0.setText(_translate("EnterNumberWindow", "0"))
+        self.pushButton_1.setText(_translate("EnterNumberWindow", "1"))
+        self.pushButton_2.setText(_translate("EnterNumberWindow", "2"))
+        self.pushButton_3.setText(_translate("EnterNumberWindow", "3"))
+        self.pushButton_4.setText(_translate("EnterNumberWindow", "4"))
+        self.pushButton_5.setText(_translate("EnterNumberWindow", "5"))
+        self.pushButton_6.setText(_translate("EnterNumberWindow", "6"))
+        self.pushButton_8.setText(_translate("EnterNumberWindow", "8"))
+        self.pushButton_9.setText(_translate("EnterNumberWindow", "9"))
+        self.pushButton_7.setText(_translate("EnterNumberWindow", "7"))
+        self.pushButton_delete.setText(_translate("EnterNumberWindow", "Стереть"))
+        self.pushButton_enter.setText(_translate("EnterNumberWindow", "Ввод"))
+        self.label.setText(_translate("EnterNumberWindow", "Введите четырехзначное число!"))
+        self.label_2.setText(_translate("EnterNumberWindow", "Цифры не должны повторяться!"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    EnterNumberWindow = QtWidgets.QMainWindow()
+    ui = Ui_EnterNumberWindow()
+    ui.setupUi(EnterNumberWindow)
+    EnterNumberWindow.show()
     sys.exit(app.exec_())
