@@ -3,33 +3,22 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
-class Started_Window(QMainWindow):
+
+class StartedWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("started_window.ui", self)
         self.pushButton_play.clicked.connect(self.go_to_enter_number_window)
         self.setStyleSheet("#Started_Window{border-image:url(static/cow.jpg)}")
         self.setFixedSize(640, 780)
+        self.enter_number_window = EnterNumberWindow()
+
     def go_to_enter_number_window(self):
-        self.enter_number_window = Enter_Number_Window()
         self.close()
         self.enter_number_window.show()
 
-    # Form_started_window, Window_started_window = uic.loadUiType("started_window.ui")
-    # app = QApplication([])
-    # window_started_window = Window_started_window()
-    # window_started_window.setStyleSheet("#Started_Window{border-image:url(static/cow.jpg)}")
-    # window_started_window.setFixedSize(640, 780)
-    # form_started_window = Form_started_window()
-    # form_started_window.setupUi(window_started_window)
-    # window_started_window.show()
-    # form_started_window.pushButton_play.clicked.connect(Enter_Number_Window)
-    # form_started_window.pushButton_play.clicked.connect(window_started_window.close)
-    # app.exec_()
 
-
-
-class Enter_Number_Window(QMainWindow):
+class EnterNumberWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("enter_number_window.ui", self)
@@ -89,7 +78,6 @@ class Enter_Number_Window(QMainWindow):
         self.in_label(True)
         self.pushButton_enter.setEnabled(False)
 
-
     def in_label(self, booll):
         self.pushButton_0.setEnabled(booll)
         self.pushButton_1.setEnabled(booll)
@@ -102,16 +90,14 @@ class Enter_Number_Window(QMainWindow):
         self.pushButton_8.setEnabled(booll)
         self.pushButton_9.setEnabled(booll)
 
-
     def check(self):
         if len(self.label_4.text()) == 4:
             self.in_label(False)
             self.pushButton_enter.setEnabled(True)
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    first = Started_Window()
+    first = StartedWindow()
     first.show()
     sys.exit(app.exec_())
-
-
