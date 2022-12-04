@@ -25,6 +25,7 @@ class EnterNumberWindow(QMainWindow):
         self.setStyleSheet("#EnterNumberWindow{border-image:url(static/background.jpg)}")
         self.setFixedSize(640, 780)
         self.pushButton_enter.setEnabled(False)
+        self.pushButton_enter.clicked.connect(self.go_to_main_window)
         self.pushButton_0.clicked.connect(self.on_click_0)
         self.pushButton_1.clicked.connect(self.on_click_1)
         self.pushButton_2.clicked.connect(self.on_click_2)
@@ -36,6 +37,7 @@ class EnterNumberWindow(QMainWindow):
         self.pushButton_8.clicked.connect(self.on_click_8)
         self.pushButton_9.clicked.connect(self.on_click_9)
         self.pushButton_delete.clicked.connect(self.on_click_delete)
+        self.enter_number_window = MainWindow()
 
     def on_click(self, number, button):
         text = self.label_4.text() + f'{number}'
@@ -95,6 +97,17 @@ class EnterNumberWindow(QMainWindow):
             self.in_label(False)
             self.pushButton_enter.setEnabled(True)
 
+    def go_to_main_window(self):
+        self.close()
+        self.enter_number_window.show()
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("main.ui", self)
+        self.setStyleSheet("#MainWindow{border-image:url(static/background.jpg)}")
+        self.setFixedSize(640, 780)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
