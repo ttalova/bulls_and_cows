@@ -13,13 +13,27 @@ class StartedWindow(QMainWindow):
         super().__init__()
         uic.loadUi("started_window.ui", self)
         self.pushButton_play.clicked.connect(self.go_to_enter_number_window)
+        self.pushButton_rule.clicked.connect(self.go_to_rules_window)
         self.setStyleSheet("#Started_Window{border-image:url(static/cow.jpg)}")
         self.setFixedSize(640, 780)
         self.enter_number_window = EnterNumberWindow()
+        self.rules_window = RulesWindow()
 
     def go_to_enter_number_window(self):
         self.close()
         self.enter_number_window.show()
+
+    def go_to_rules_window(self):
+        # self.close()
+        self.rules_window.show()
+
+class RulesWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("rules_window.ui", self)
+        self.setStyleSheet("#RulesWindow{border-image:url(static/background.jpg)}")
+        self.setFixedSize(640, 780)
+        self.label_rules.setText('aaaa')
 
 
 class EnterNumberWindow(QMainWindow):
@@ -101,9 +115,13 @@ class EnterNumberWindow(QMainWindow):
             self.pushButton_enter.setEnabled(True)
 
     def go_to_main_window(self):
-        self.enter_number_window = MainWindow(self.label_4.text())
-        self.close()
-        self.enter_number_window.show()
+        if len(self.nick_of_player.toPlainText()) == 0:
+            self.on_click_delete()
+            self.label_warning.setText('Вы не ввели ник!')
+        else:
+            self.enter_number_window = MainWindow(self.label_4.text())
+            self.close()
+            self.enter_number_window.show()
 
 
 

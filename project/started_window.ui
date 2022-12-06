@@ -34,6 +34,26 @@
      <string>Играть</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_rule">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>40</y>
+      <width>91</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Правила</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
