@@ -3,7 +3,7 @@ import socket
 import threading
 
 host = '127.0.0.1'
-port = 5096
+port = 5097
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
@@ -14,21 +14,21 @@ numbers = []
 main_num = {}
 
 
-def broadcast(message, client):
-    for client_1 in clients:
-        if client == client_1:
-            client_1.send(message)
+def broadcast(message):
+    for client in clients:
+        client.send(message)
 
 
 def handle(client):
     while True:
         try:
-            message = client.recv(1024)
+            message = client.recv(1024).decode('ascii')
             for client_1 in clients:
                 if client_1 != client:
-                    message = f'{main_num[client_1]}'.encode('ascii')
-            print(message)
-            broadcast(message, client)
+                    message+=','
+                    message += f'{main_num[client_1]}'
+            message = message.encode('ascii')
+            broadcast(message)
         except:
             index = clients.index(client)
             clients.remove(client)

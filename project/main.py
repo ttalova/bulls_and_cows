@@ -112,7 +112,7 @@ class MainWindow(AbstractWindow):
     def __init__(self, number):
         super().__init__()
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client.connect(('127.0.0.1', 5096))
+        self.client.connect(('127.0.0.1', 5097))
         self.number = str(number)
         uic.loadUi("main.ui", self)
         self.setStyleSheet("#MainWindow{border-image:url(static/background.jpg)}")
@@ -157,17 +157,24 @@ class MainWindow(AbstractWindow):
 
 
     def write_number(self, message):
+        message = message.split(',')
+        input_number = message[0]
+        hidden_number = message[1]
         number = str(self.label_4.text())
         cows = 0
         bulls = 0
         j = 0
-        for i in number:
-            if message[j] == i:
+        for i in input_number:
+            if hidden_number[j] == i:
                 bulls +=1
-            elif i in message:
+            elif i in hidden_number:
                 cows += 1
             j += 1
-        self.My_fied.append(f'{self.label_4.text()}' + ' ' * 16 + f'{bulls}' + ' ' * 16 + f'{cows}')
+        res = f'{input_number}' + ' ' * 16 + f'{bulls}' + ' ' * 16 + f'{cows}'
+        if number == input_number:
+            self.My_fied.append(res)
+        else:
+            self.Opponent_fied.append(res)
         self.on_click_delete()
 
 if __name__ == '__main__':
