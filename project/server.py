@@ -25,9 +25,8 @@ def handle(client):
         try:
             message = client.recv(1024)
             for client_1 in clients:
-                print(type(message))
                 if client_1 != client:
-                    message = bytes(f"b'{main_num[client_1]}'")
+                    message += f'{main_num[client_1]}'.encode('ascii')
             broadcast(message, client)
         except:
             index = clients.index(client)
@@ -39,17 +38,14 @@ def handle(client):
 
 
 def receive():
-    while True:
+    while len(clients)<2:
         client, address = server.accept()
         print("Connected with {}".format(str()))
         client.send('NUMBER'.encode('ascii'))
         number = client.recv(1024).decode('ascii')
-        if len(numbers) < 2:
-            main_num[client] = number
-            numbers.append(number)
-            clients.append(client)
-            print("Client is {}".format(client))
-
+        main_num[client] = number
+        numbers.append(number)
+        clients.append(client)
         thread = threading.Thread(target=handle, args=(client,))
         thread.start()
 

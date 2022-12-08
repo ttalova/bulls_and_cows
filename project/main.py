@@ -22,9 +22,6 @@ class StartedWindow(QMainWindow):
 class AbstractWindow(QMainWindow):
     def __init__(self):
         super(AbstractWindow, self).__init__()
-        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client.connect(('127.0.0.1', 5096))
-
     def on_click(self, number, button):
         text = self.label_4.text() + f'{number}'
         self.label_4.setText(f"{text}")
@@ -106,7 +103,6 @@ class EnterNumberWindow(AbstractWindow):
 
     def go_to_main_window(self):
         self.enter_number_window = MainWindow(self.label_4.text())
-        self.client.send(self.label_4.text().encode('ascii'))
         self.close()
         self.enter_number_window.show()
 
@@ -115,6 +111,8 @@ class EnterNumberWindow(AbstractWindow):
 class MainWindow(AbstractWindow):
     def __init__(self, number):
         super().__init__()
+        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.client.connect(('127.0.0.1', 5096))
         self.number = str(number)
         uic.loadUi("main.ui", self)
         self.setStyleSheet("#MainWindow{border-image:url(static/background.jpg)}")
@@ -132,6 +130,7 @@ class MainWindow(AbstractWindow):
         self.pushButton_9.clicked.connect(self.on_click_9)
         self.pushButton_delete.clicked.connect(self.on_click_delete)
         self.pushButton_enter.clicked.connect(self.write)
+        self.client.send(self.number.encode('ascii'))
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
 
@@ -148,7 +147,6 @@ class MainWindow(AbstractWindow):
                 # в случае любой ошибки лочим открытые инпуты и выводим ошибку
                 self.My_fied.setText("Error! Reload app")
                 self.My_fied.setEnabled(False)
-                self.send.setEnabled(False)
                 # закрываем клиент
                 self.client.close()
                 break
