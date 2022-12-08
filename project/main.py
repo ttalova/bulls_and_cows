@@ -171,11 +171,14 @@ class MainWindow(AbstractWindow):
                 cows += 1
             j += 1
         res = f'{input_number}' + ' ' * 16 + f'{bulls}' + ' ' * 16 + f'{cows}'
+        self.on_click_delete()
         if number == input_number:
             self.My_fied.append(res)
+            self.in_label(False)
         else:
             self.Opponent_fied.append(res)
-        self.on_click_delete()
+            self.in_label(True)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
