@@ -26,7 +26,8 @@ def handle(client):
             message = client.recv(1024)
             for client_1 in clients:
                 if client_1 != client:
-                    message += f'{main_num[client_1]}'.encode('ascii')
+                    message = f'{main_num[client_1]}'.encode('ascii')
+            print(message)
             broadcast(message, client)
         except:
             index = clients.index(client)
