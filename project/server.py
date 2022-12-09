@@ -1,6 +1,7 @@
 import os
 import socket
 import threading
+import time
 
 host = '127.0.0.1'
 port = 5097
@@ -41,15 +42,24 @@ def handle(client):
 def receive():
     while len(clients)<2:
         client, address = server.accept()
-        print("Connected with {}".format(str()))
+        print("Connected with {}".format(str(client)))
         client.send('NUMBER'.encode('ascii'))
         number = client.recv(1024).decode('ascii')
         main_num[client] = number
         numbers.append(number)
         clients.append(client)
+        if len(clients) == 1:
+            time.sleep(1)
+            message = 'nostartgame'.encode('ascii')
+            broadcast(message)
+        elif len(clients) == 2:
+            time.sleep(1)
+            message = 'startgame'
+            clients[0].send(message.encode('ascii'))
+        print(len(clients))
         thread = threading.Thread(target=handle, args=(client,))
         thread.start()
 
 
-os.system('clear')
+os.system('cls')
 receive()

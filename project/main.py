@@ -1,8 +1,10 @@
 import sys
 import socket
 import threading
+import time
 
-from PyQt5 import uic
+from PyQt5 import uic, QtGui
+from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
@@ -134,15 +136,31 @@ class MainWindow(AbstractWindow):
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
 
+
     def receive(self):
+        path = 'static/loading.gif'
+        gif = QtGui.QMovie(path)  # !!!
+        self.label_loading.setMovie(gif)
+        gif.start()
         while True:
             try:
                 # пытаемся получить сообщение
                 message = self.client.recv(1024).decode('ascii')
+                print(message)
                 # если полученное сообщение с информацией не о введеном нике или не о своем сообщении,
                 # добавляем сообщение в список
-                if message != "NUMBER":
+                if message == "nostartgame":
+                    self.centralwidget.hide()
+                    # self.label_loading.hide()
+                    print(1)
+                if message == "startgame":
+                    self.centralwidget.show()
+                    # self.label_loading.hide()
+                    print(1)
+                elif message != "NUMBER" and message != "nostartgame":
+                    print(2)
                     self.write_number(message)
+
             except:
                 # в случае любой ошибки лочим открытые инпуты и выводим ошибку
                 self.My_fied.setText("Error! Reload app")
