@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>641</width>
-    <height>795</height>
+    <width>643</width>
+    <height>814</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -353,7 +353,7 @@ p, li { white-space: pre-wrap; }
     <widget class="QLabel" name="label_loading">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>110</x>
        <y>70</y>
        <width>383</width>
        <height>480</height>
@@ -384,6 +384,135 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="text">
       <string>Ожидаем вашего соперника</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_3" native="true">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>9</y>
+      <width>651</width>
+      <height>781</height>
+     </rect>
+    </property>
+    <widget class="QLabel" name="label_result_of_game">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>40</y>
+       <width>241</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_cow">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>-15</y>
+       <width>651</width>
+       <height>821</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_4" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>651</width>
+      <height>781</height>
+     </rect>
+    </property>
+    <widget class="QLabel" name="label_result_of_game_2">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>80</y>
+       <width>241</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_cow_2">
+     <property name="geometry">
+      <rect>
+       <x>-10</x>
+       <y>-5</y>
+       <width>661</width>
+       <height>821</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_5" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>651</width>
+      <height>781</height>
+     </rect>
+    </property>
+    <widget class="QLabel" name="label_result_of_game_3">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>130</y>
+       <width>211</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_cow_3">
+     <property name="geometry">
+      <rect>
+       <x>-10</x>
+       <y>-5</y>
+       <width>661</width>
+       <height>821</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>

@@ -4,6 +4,7 @@ import threading
 import time
 
 from PyQt5 import uic, QtGui
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
@@ -33,8 +34,9 @@ class AbstractWindow(QMainWindow):
         self.on_click('0', self.pushButton_0)
 
     def on_click_delete(self):
+        if len(self.label_4.text()) != 0:
+            self.in_label(True)
         self.label_4.setText('')
-        self.in_label(True)
         self.pushButton_enter.setEnabled(False)
 
     def on_click_1(self):
@@ -131,35 +133,50 @@ class MainWindow(AbstractWindow):
         self.pushButton_9.clicked.connect(self.on_click_9)
         self.pushButton_delete.clicked.connect(self.on_click_delete)
         self.pushButton_enter.clicked.connect(self.write)
+        self.label_result_of_game.setText('Вы выиграли!')
+        self.label_result_of_game_2.setText('Вы проиграли!')
+        self.label_result_of_game_3.setText('Ничья!')
         self.client.send(self.number.encode('ascii'))
+        self.widget_3.hide()
+        self.widget_4.hide()
+        self.widget_5.hide()
         path = 'static/loading.gif'
         gif = QtGui.QMovie(path)  # !!!
         self.label_loading.setMovie(gif)
         gif.start()
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
+        self.widget_3.hide()
+        self.prewinner = 0
+        self.send_prewinner = 0
+        self.to_draw = 0
 
 
     def receive(self):
         self.widget_2.hide()
+        first_player = 1
         while True:
             try:
                 # пытаемся получить сообщение
                 message = self.client.recv(1024).decode('ascii')
-                print(message)
-                # если полученное сообщение с информацией не о введеном нике или не о своем сообщении,
-                # добавляем сообщение в список
                 if message == "nostartgame":
                     self.widget.hide()
                     self.widget_2.show()
-                    print(1)
                 if message == "startgame":
                     self.widget_2.hide()
                     self.widget.show()
-                    print(1)
+                    self.in_label(False)
+                    first_player = 2
+                    self.to_draw = 1
                 elif message != "NUMBER" and message != "nostartgame":
-                    print(2)
-                    self.write_number(message)
+                    if message == 'prewinner':
+                        self.prewinner = 1
+                    elif first_player == 1:
+                        print('player 1')
+                        self.write_number(message + ',1')
+                    else:
+                        print('player 2')
+                        self.write_number(message + ',2')
 
             except:
                 # в случае любой ошибки лочим открытые инпуты и выводим ошибку
@@ -176,8 +193,10 @@ class MainWindow(AbstractWindow):
 
     def write_number(self, message):
         message = message.split(',')
+        print(message)
         input_number = message[0]
         hidden_number = message[1]
+        player = int(message[2])
         number = str(self.label_4.text())
         cows = 0
         bulls = 0
@@ -190,12 +209,53 @@ class MainWindow(AbstractWindow):
             j += 1
         res = f'{input_number}' + ' ' * 16 + f'{bulls}' + ' ' * 16 + f'{cows}'
         self.on_click_delete()
+
         if number == input_number:
             self.My_fied.append(res)
             self.in_label(False)
+            if bulls == 4 and player == 1:
+                self.send_prewinner = 1
+                self.client.send('prewinner'.encode('ascii'))
+            elif bulls != 4 and player == 2 and self.prewinner == 1:
+                time.sleep(1)
+                self.setStyleSheet("#MainWindow{border-image:url(static/lose.jpg)}")
+                self.loser()
+            elif bulls == 4 and player == 2:
+                if self.prewinner == 1:
+                    time.sleep(1)
+                    self.draw()
+                else:
+                    time.sleep(1)
+                    self.winner()
         else:
             self.Opponent_fied.append(res)
             self.in_label(True)
+            if bulls != 4 and player == 1 and self.send_prewinner == 1:
+                time.sleep(1)
+                self.winner()
+            elif bulls == 4 and player == 1:
+                self.in_label(False)
+                if self.send_prewinner == 1:
+                    time.sleep(1)
+                    self.draw()
+                else:
+                    time.sleep(1)
+                    self.setStyleSheet("#MainWindow{border-image:url(static/lose.jpg)}")
+                    self.loser()
+
+    def winner(self):
+        self.widget.hide()
+        self.setStyleSheet("#MainWindow{border-image:url(static/win.jpg)}")
+        self.widget_3.show()
+
+    def loser(self):
+        self.widget.hide()
+        self.widget_4.show()
+
+    def draw(self):
+        self.setStyleSheet("#MainWindow{border-image:url(static/draw.jpg)}")
+        self.widget.hide()
+        self.widget_5.show()
 
 
 if __name__ == '__main__':

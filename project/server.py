@@ -24,10 +24,11 @@ def handle(client):
     while True:
         try:
             message = client.recv(1024).decode('ascii')
-            for client_1 in clients:
-                if client_1 != client:
-                    message += ','
-                    message += f'{main_num[client_1]}'
+            if message != 'prewinner':
+                for client_1 in clients:
+                    if client_1 != client:
+                        message += ','
+                        message += f'{main_num[client_1]}'
             message = message.encode('ascii')
             broadcast(message)
         except:
