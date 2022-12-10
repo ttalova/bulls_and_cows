@@ -26,15 +26,15 @@ def handle(client):
             message = client.recv(1024).decode('ascii')
             for client_1 in clients:
                 if client_1 != client:
-                    message+=','
+                    message += ','
                     message += f'{main_num[client_1]}'
             message = message.encode('ascii')
             broadcast(message)
         except:
+            print('close')
             index = clients.index(client)
-            clients.remove(client)
-            client.close()
             client = clients[index]
+            client.close()
             clients.remove(client)
             break
 

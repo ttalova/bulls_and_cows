@@ -4,7 +4,6 @@ import threading
 import time
 
 from PyQt5 import uic, QtGui
-from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
@@ -133,15 +132,16 @@ class MainWindow(AbstractWindow):
         self.pushButton_delete.clicked.connect(self.on_click_delete)
         self.pushButton_enter.clicked.connect(self.write)
         self.client.send(self.number.encode('ascii'))
+        path = 'static/loading.gif'
+        gif = QtGui.QMovie(path)  # !!!
+        self.label_loading.setMovie(gif)
+        gif.start()
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
 
 
     def receive(self):
-        path = 'static/loading.gif'
-        gif = QtGui.QMovie(path)  # !!!
-        self.label_loading.setMovie(gif)
-        gif.start()
+        self.widget_2.hide()
         while True:
             try:
                 # пытаемся получить сообщение
@@ -150,12 +150,12 @@ class MainWindow(AbstractWindow):
                 # если полученное сообщение с информацией не о введеном нике или не о своем сообщении,
                 # добавляем сообщение в список
                 if message == "nostartgame":
-                    self.centralwidget.hide()
-                    # self.label_loading.hide()
+                    self.widget.hide()
+                    self.widget_2.show()
                     print(1)
                 if message == "startgame":
-                    self.centralwidget.show()
-                    # self.label_loading.hide()
+                    self.widget_2.hide()
+                    self.widget.show()
                     print(1)
                 elif message != "NUMBER" and message != "nostartgame":
                     print(2)
