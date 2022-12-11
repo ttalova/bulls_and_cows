@@ -133,6 +133,9 @@ class MainWindow(AbstractWindow):
         self.pushButton_9.clicked.connect(self.on_click_9)
         self.pushButton_delete.clicked.connect(self.on_click_delete)
         self.pushButton_enter.clicked.connect(self.write)
+        self.pushButton_game_again.clicked.connect(self.game_again)
+        self.pushButton_game_again_2.clicked.connect(self.game_again)
+        self.pushButton_game_again_3.clicked.connect(self.game_again)
         self.label_result_of_game.setText('Вы выиграли!')
         self.label_result_of_game_2.setText('Вы проиграли!')
         self.label_result_of_game_3.setText('Ничья!')
@@ -149,7 +152,7 @@ class MainWindow(AbstractWindow):
         self.widget_3.hide()
         self.prewinner = 0
         self.send_prewinner = 0
-        self.to_draw = 0
+        self.to_endgame = 0
 
 
     def receive(self):
@@ -162,12 +165,12 @@ class MainWindow(AbstractWindow):
                 if message == "nostartgame":
                     self.widget.hide()
                     self.widget_2.show()
-                if message == "startgame":
+                elif message == "startgame":
                     self.widget_2.hide()
                     self.widget.show()
                     self.in_label(False)
                     first_player = 2
-                    self.to_draw = 1
+                    self.to_endgame = 1
                 elif message != "NUMBER" and message != "nostartgame":
                     if message == 'prewinner':
                         self.prewinner = 1
@@ -217,46 +220,51 @@ class MainWindow(AbstractWindow):
                 self.send_prewinner = 1
                 self.client.send('prewinner'.encode('ascii'))
             elif bulls != 4 and player == 2 and self.prewinner == 1:
-                time.sleep(1)
                 self.setStyleSheet("#MainWindow{border-image:url(static/lose.jpg)}")
                 self.loser()
             elif bulls == 4 and player == 2:
                 if self.prewinner == 1:
-                    time.sleep(1)
                     self.draw()
                 else:
-                    time.sleep(1)
                     self.winner()
         else:
             self.Opponent_fied.append(res)
             self.in_label(True)
             if bulls != 4 and player == 1 and self.send_prewinner == 1:
-                time.sleep(1)
                 self.winner()
             elif bulls == 4 and player == 1:
                 self.in_label(False)
                 if self.send_prewinner == 1:
-                    time.sleep(1)
                     self.draw()
                 else:
-                    time.sleep(1)
                     self.setStyleSheet("#MainWindow{border-image:url(static/lose.jpg)}")
                     self.loser()
 
     def winner(self):
+        self.end_game()
         self.widget.hide()
         self.setStyleSheet("#MainWindow{border-image:url(static/win.jpg)}")
         self.widget_3.show()
 
     def loser(self):
+        self.end_game()
         self.widget.hide()
         self.widget_4.show()
 
     def draw(self):
+        self.end_game()
         self.setStyleSheet("#MainWindow{border-image:url(static/draw.jpg)}")
         self.widget.hide()
         self.widget_5.show()
 
+    def game_again(self):
+        # self.client.send('gameagain'.encode('ascii'))
+        self.close()
+        self.backwindow = EnterNumberWindow()
+        self.backwindow.show()
+
+    def end_game(self):
+        self.client.send('endgame'.encode('ascii'))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

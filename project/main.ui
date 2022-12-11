@@ -429,6 +429,26 @@ p, li { white-space: pre-wrap; }
       <string/>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButton_game_again">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>680</y>
+       <width>331</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Играть снова!</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_4" native="true">
     <property name="geometry">
@@ -470,6 +490,26 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="text">
       <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_game_again_2">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>690</y>
+       <width>331</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Играть снова!</string>
      </property>
     </widget>
    </widget>
@@ -515,7 +555,32 @@ p, li { white-space: pre-wrap; }
       <string/>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButton_game_again_3">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>690</y>
+       <width>331</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Играть снова!</string>
+     </property>
+    </widget>
    </widget>
+   <zorder>widget</zorder>
+   <zorder>widget_2</zorder>
+   <zorder>widget_5</zorder>
+   <zorder>widget_4</zorder>
+   <zorder>widget_3</zorder>
   </widget>
  </widget>
  <resources/>

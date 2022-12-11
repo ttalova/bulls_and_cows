@@ -24,13 +24,21 @@ def handle(client):
     while True:
         try:
             message = client.recv(1024).decode('ascii')
-            if message != 'prewinner':
-                for client_1 in clients:
-                    if client_1 != client:
-                        message += ','
-                        message += f'{main_num[client_1]}'
-            message = message.encode('ascii')
-            broadcast(message)
+            if message == 'endgame':
+                index = clients.index(client)
+                client = clients[index]
+                clients.remove(client)
+                print(message, type(message))
+                print(len(clients))
+            else:
+                if message != 'prewinner' and message != 'endgame':
+                    for client_1 in clients:
+                        if client_1 != client:
+                            message += ','
+                            message += f'{main_num[client_1]}'
+                print(message, type(message))
+                message = message.encode('ascii')
+                broadcast(message)
         except:
             print('close')
             index = clients.index(client)
