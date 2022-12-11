@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>643</width>
+    <width>649</width>
     <height>814</height>
    </rect>
   </property>
@@ -576,11 +576,25 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="label_status">
+    <property name="geometry">
+     <rect>
+      <x>755</x>
+      <y>590</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
    <zorder>widget</zorder>
    <zorder>widget_2</zorder>
    <zorder>widget_5</zorder>
    <zorder>widget_4</zorder>
    <zorder>widget_3</zorder>
+   <zorder>label_status</zorder>
   </widget>
  </widget>
  <resources/>

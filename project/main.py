@@ -5,7 +5,7 @@ import time
 
 from PyQt5 import uic, QtGui
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 
 
 class StartedWindow(QMainWindow):
@@ -163,20 +163,33 @@ class MainWindow(AbstractWindow):
                 # пытаемся получить сообщение
                 message = self.client.recv(1024).decode('ascii')
                 if message == "nostartgame":
+                    print('get nostartgame')
                     self.widget.hide()
                     self.widget_2.show()
                 elif message == "startgame":
+                    print('get startgame')
                     self.widget_2.hide()
                     self.widget.show()
                     self.in_label(False)
                     first_player = 2
                     self.to_endgame = 1
+                elif message == 'goout':
+                    print('get goout')
+                    self.end_game()
+                    self.label_result_of_game_3.setText('Соперник покинул игру!')
+                    self.setStyleSheet("#MainWindow{border-image:url(static/lost_connection.jpg)}")
+                    self.widget.hide()
+                    self.widget_5.show()
                 elif message != "NUMBER" and message != "nostartgame":
+                    print('get enother message')
                     if message == 'prewinner':
+                        print('get prewinner')
                         self.prewinner = 1
                     elif first_player == 1:
+                        print('first_player == 1')
                         self.write_number(message + ',1')
                     else:
+                        print('first_player == 2')
                         self.write_number(message + ',2')
 
             except:
@@ -191,6 +204,10 @@ class MainWindow(AbstractWindow):
         message = self.label_4.text()
         self.client.send(message.encode('ascii'))
 
+    def closeEvent(self, event):
+        event.accept()
+        if self.label_status.text() == '0':
+            self.client.close()
 
     def write_number(self, message):
         message = message.split(',')
@@ -250,11 +267,13 @@ class MainWindow(AbstractWindow):
 
     def draw(self):
         self.end_game()
+        self.label_result_of_game_3.setText('Ничья!')
         self.setStyleSheet("#MainWindow{border-image:url(static/draw.jpg)}")
         self.widget.hide()
         self.widget_5.show()
 
     def game_again(self):
+        self.label_status.setText('1')
         self.close()
         self.backwindow = EnterNumberWindow()
         self.backwindow.show()
