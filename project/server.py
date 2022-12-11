@@ -28,28 +28,25 @@ def handle(client):
                 index = clients.index(client)
                 client = clients[index]
                 clients.remove(client)
-                print(message, type(message))
-                print(len(clients))
             else:
                 if message != 'prewinner' and message != 'endgame':
                     for client_1 in clients:
                         if client_1 != client:
                             message += ','
                             message += f'{main_num[client_1]}'
-                print(message, type(message))
                 message = message.encode('ascii')
                 broadcast(message)
         except:
-            print('close')
             index = clients.index(client)
             client = clients[index]
             client.close()
             clients.remove(client)
+
             break
 
 
 def receive():
-    while len(clients)<2:
+    while True:
         client, address = server.accept()
         print("Connected with {}".format(str(client)))
         client.send('NUMBER'.encode('ascii'))
@@ -65,7 +62,6 @@ def receive():
             time.sleep(1)
             message = 'startgame'
             clients[0].send(message.encode('ascii'))
-        print(len(clients))
         thread = threading.Thread(target=handle, args=(client,))
         thread.start()
 

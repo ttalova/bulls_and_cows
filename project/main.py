@@ -175,10 +175,8 @@ class MainWindow(AbstractWindow):
                     if message == 'prewinner':
                         self.prewinner = 1
                     elif first_player == 1:
-                        print('player 1')
                         self.write_number(message + ',1')
                     else:
-                        print('player 2')
                         self.write_number(message + ',2')
 
             except:
@@ -196,7 +194,6 @@ class MainWindow(AbstractWindow):
 
     def write_number(self, message):
         message = message.split(',')
-        print(message)
         input_number = message[0]
         hidden_number = message[1]
         player = int(message[2])
@@ -258,7 +255,6 @@ class MainWindow(AbstractWindow):
         self.widget_5.show()
 
     def game_again(self):
-        # self.client.send('gameagain'.encode('ascii'))
         self.close()
         self.backwindow = EnterNumberWindow()
         self.backwindow.show()
