@@ -1,17 +1,15 @@
 import sys
 import socket
 import threading
-import time
 
-from PyQt5 import uic, QtGui
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt6 import uic, QtGui
+from PyQt6.QtWidgets import QApplication, QMainWindow
 
 
 class StartedWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("started_window.ui", self)
+        uic.loadUi("windows/started_window.ui", self)
         self.pushButton_play.clicked.connect(self.go_to_enter_number_window)
         self.setStyleSheet("#Started_Window{border-image:url(static/cow.jpg)}")
         self.setFixedSize(640, 780)
@@ -21,9 +19,11 @@ class StartedWindow(QMainWindow):
         self.close()
         self.enter_number_window.show()
 
+
 class AbstractWindow(QMainWindow):
     def __init__(self):
         super(AbstractWindow, self).__init__()
+
     def on_click(self, number, button):
         text = self.label_4.text() + f'{number}'
         self.label_4.setText(f"{text}")
@@ -68,26 +68,21 @@ class AbstractWindow(QMainWindow):
 
 
     def in_label(self, booll):
-        self.pushButton_0.setEnabled(booll)
-        self.pushButton_1.setEnabled(booll)
-        self.pushButton_2.setEnabled(booll)
-        self.pushButton_3.setEnabled(booll)
-        self.pushButton_4.setEnabled(booll)
-        self.pushButton_5.setEnabled(booll)
-        self.pushButton_6.setEnabled(booll)
-        self.pushButton_7.setEnabled(booll)
-        self.pushButton_8.setEnabled(booll)
-        self.pushButton_9.setEnabled(booll)
+        buttons = [self.pushButton_0, self.pushButton_1, self.pushButton_2, self.pushButton_3, self.pushButton_4,
+                        self.pushButton_5, self.pushButton_6, self.pushButton_7, self.pushButton_8, self.pushButton_9]
+        for btn in buttons:
+            btn.setEnabled(booll)
 
     def check(self):
         if len(self.label_4.text()) == 4:
             self.in_label(False)
             self.pushButton_enter.setEnabled(True)
 
+
 class EnterNumberWindow(AbstractWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("enter_number_window.ui", self)
+        uic.loadUi("windows/enter_number_window.ui", self)
         self.setStyleSheet("#EnterNumberWindow{border-image:url(static/background.jpg)}")
         self.setFixedSize(640, 780)
         self.pushButton_enter.setEnabled(False)
@@ -110,14 +105,13 @@ class EnterNumberWindow(AbstractWindow):
         self.enter_number_window.show()
 
 
-
 class MainWindow(AbstractWindow):
     def __init__(self, number):
         super().__init__()
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client.connect(('127.0.0.1', 5097))
+        self.client.connect(('127.0.0.1', 6080))
         self.number = str(number)
-        uic.loadUi("main.ui", self)
+        uic.loadUi("windows/main.ui", self)
         self.setStyleSheet("#MainWindow{border-image:url(static/background.jpg)}")
         self.setFixedSize(640, 780)
         self.pushButton_enter.setEnabled(False)
@@ -143,17 +137,14 @@ class MainWindow(AbstractWindow):
         self.widget_3.hide()
         self.widget_4.hide()
         self.widget_5.hide()
+        self.prewinner = 0
+        self.send_prewinner = 0
         path = 'static/loading.gif'
         gif = QtGui.QMovie(path)  # !!!
         self.label_loading.setMovie(gif)
         gif.start()
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
-        self.widget_3.hide()
-        self.prewinner = 0
-        self.send_prewinner = 0
-        self.to_endgame = 0
-
 
     def receive(self):
         self.widget_2.hide()
@@ -163,33 +154,19 @@ class MainWindow(AbstractWindow):
                 # пытаемся получить сообщение
                 message = self.client.recv(1024).decode('ascii')
                 if message == "nostartgame":
-                    print('get nostartgame')
                     self.widget.hide()
                     self.widget_2.show()
                 elif message == "startgame":
-                    print('get startgame')
                     self.widget_2.hide()
                     self.widget.show()
                     self.in_label(False)
                     first_player = 2
-                    self.to_endgame = 1
-                elif message == 'goout':
-                    print('get goout')
-                    self.end_game()
-                    self.label_result_of_game_3.setText('Соперник покинул игру!')
-                    self.setStyleSheet("#MainWindow{border-image:url(static/lost_connection.jpg)}")
-                    self.widget.hide()
-                    self.widget_5.show()
-                elif message != "NUMBER" and message != "nostartgame":
-                    print('get enother message')
+                elif message != "NUMBER":
                     if message == 'prewinner':
-                        print('get prewinner')
                         self.prewinner = 1
                     elif first_player == 1:
-                        print('first_player == 1')
                         self.write_number(message + ',1')
                     else:
-                        print('first_player == 2')
                         self.write_number(message + ',2')
 
             except:
@@ -204,10 +181,7 @@ class MainWindow(AbstractWindow):
         message = self.label_4.text()
         self.client.send(message.encode('ascii'))
 
-    def closeEvent(self, event):
-        event.accept()
-        if self.label_status.text() == '0':
-            self.client.close()
+
 
     def write_number(self, message):
         message = message.split(',')
@@ -220,7 +194,7 @@ class MainWindow(AbstractWindow):
         j = 0
         for i in input_number:
             if hidden_number[j] == i:
-                bulls +=1
+                bulls += 1
             elif i in hidden_number:
                 cows += 1
             j += 1
@@ -273,7 +247,6 @@ class MainWindow(AbstractWindow):
         self.widget_5.show()
 
     def game_again(self):
-        self.label_status.setText('1')
         self.close()
         self.backwindow = EnterNumberWindow()
         self.backwindow.show()
@@ -281,8 +254,11 @@ class MainWindow(AbstractWindow):
     def end_game(self):
         self.client.send('endgame'.encode('ascii'))
 
+
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     first = StartedWindow()
     first.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
