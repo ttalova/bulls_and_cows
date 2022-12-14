@@ -195,7 +195,7 @@ class MainWindow(AbstractWindow):
             elif i in hidden_number:
                 cows += 1
             j += 1
-        res = f'{input_number}' + ' ' * 16 + f'{bulls}' + ' ' * 16 + f'{cows}'
+        res = f'{input_number}' + ' ' * 14 + f'{bulls}' + ' ' * 14 + f'{cows}'
         self.on_click_delete()
 
         if number == input_number:
