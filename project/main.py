@@ -11,27 +11,13 @@ class StartedWindow(QMainWindow):
         super().__init__()
         uic.loadUi("windows/started_window.ui", self)
         self.pushButton_play.clicked.connect(self.go_to_enter_number_window)
-        self.pushButton_rule.clicked.connect(self.go_to_rules_window)
         self.setStyleSheet("#Started_Window{border-image:url(static/cow.jpg)}")
         self.setFixedSize(640, 780)
         self.enter_number_window = EnterNumberWindow()
-        self.rules_window = RulesWindow()
 
     def go_to_enter_number_window(self):
         self.close()
         self.enter_number_window.show()
-
-    def go_to_rules_window(self):
-        # self.close()
-        self.rules_window.show()
-
-class RulesWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        uic.loadUi("rules_window.ui", self)
-        self.setStyleSheet("#RulesWindow{border-image:url(static/background.jpg)}")
-        self.setFixedSize(640, 780)
-        self.label_rules.setText('aaaa')
 
 
 class AbstractWindow(QMainWindow):
@@ -114,13 +100,9 @@ class EnterNumberWindow(AbstractWindow):
         self.pushButton_enter.clicked.connect(self.go_to_main_window)
 
     def go_to_main_window(self):
-        if len(self.nick_of_player.toPlainText()) == 0:
-            self.on_click_delete()
-            self.label_warning.setText('Вы не ввели ник!')
-        else:
-            self.enter_number_window = MainWindow(self.label_4.text())
-            self.close()
-            self.enter_number_window.show()
+        self.enter_number_window = MainWindow(self.label_4.text())
+        self.close()
+        self.enter_number_window.show()
 
 
 class MainWindow(AbstractWindow):
@@ -148,9 +130,6 @@ class MainWindow(AbstractWindow):
         self.pushButton_game_again.clicked.connect(self.game_again)
         self.pushButton_game_again_2.clicked.connect(self.game_again)
         self.pushButton_game_again_3.clicked.connect(self.game_again)
-        self.label_result_of_game.setText('Вы выиграли!')
-        self.label_result_of_game_2.setText('Вы проиграли!')
-        self.label_result_of_game_3.setText('Ничья!')
         self.client.send(self.number.encode('ascii'))
         self.widget_3.hide()
         self.widget_4.hide()
@@ -259,7 +238,6 @@ class MainWindow(AbstractWindow):
 
     def draw(self):
         self.end_game()
-        self.label_result_of_game_3.setText('Ничья!')
         self.setStyleSheet("#MainWindow{border-image:url(static/draw.jpg)}")
         self.widget.hide()
         self.widget_5.show()

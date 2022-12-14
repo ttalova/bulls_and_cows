@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>649</width>
+    <width>653</width>
     <height>814</height>
    </rect>
   </property>
@@ -369,9 +369,9 @@ p, li { white-space: pre-wrap; }
     <widget class="QLabel" name="label_loading_text">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>560</y>
-       <width>451</width>
+       <x>140</x>
+       <y>550</y>
+       <width>481</width>
        <height>51</height>
       </rect>
      </property>
@@ -383,7 +383,7 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>Ожидаем вашего соперника</string>
+      <string>Ожидаем вашего соперника...</string>
      </property>
     </widget>
    </widget>
@@ -396,26 +396,6 @@ p, li { white-space: pre-wrap; }
       <height>781</height>
      </rect>
     </property>
-    <widget class="QLabel" name="label_result_of_game">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>40</y>
-       <width>241</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>18</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_cow">
      <property name="geometry">
       <rect>
@@ -433,7 +413,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>680</y>
+       <y>630</y>
        <width>331</width>
        <height>91</height>
       </rect>
@@ -459,26 +439,6 @@ p, li { white-space: pre-wrap; }
       <height>781</height>
      </rect>
     </property>
-    <widget class="QLabel" name="label_result_of_game_2">
-     <property name="geometry">
-      <rect>
-       <x>210</x>
-       <y>80</y>
-       <width>241</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>18</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_cow_2">
      <property name="geometry">
       <rect>
@@ -496,7 +456,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>690</y>
+       <y>640</y>
        <width>331</width>
        <height>91</height>
       </rect>
@@ -522,26 +482,6 @@ p, li { white-space: pre-wrap; }
       <height>781</height>
      </rect>
     </property>
-    <widget class="QLabel" name="label_result_of_game_3">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>130</y>
-       <width>211</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>18</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_cow_3">
      <property name="geometry">
       <rect>
@@ -559,7 +499,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>690</y>
+       <y>640</y>
        <width>331</width>
        <height>91</height>
       </rect>
@@ -590,11 +530,11 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <zorder>widget</zorder>
-   <zorder>widget_2</zorder>
-   <zorder>widget_5</zorder>
-   <zorder>widget_4</zorder>
-   <zorder>widget_3</zorder>
    <zorder>label_status</zorder>
+   <zorder>widget_5</zorder>
+   <zorder>widget_3</zorder>
+   <zorder>widget_4</zorder>
+   <zorder>widget_2</zorder>
   </widget>
  </widget>
  <resources/>
