@@ -10,10 +10,10 @@ Game with GUI
 
 
 ## Examples
-![img.png](project/static/for_readme/exm_1.png)
-![img.png](project/static/for_readme/exm_2.png)
-![img.png](project/static/for_readme/exm_3.png)
-![img.png](project/static/for_readme/exm_4.png)
+<img alt="img.png" src="project/static/for_readme/exm_1.png" width="500"/>
+<img alt="img.png" src="project/static/for_readme/exm_2.png" width="500"/>
+<img alt="img.png" src="project/static/for_readme/exm_3.png" width="500"/>
+<img alt="img.png" src="project/static/for_readme/exm_4.png" width="500"/>
 
 
 ## Project tasks
